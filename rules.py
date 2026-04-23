@@ -10,7 +10,7 @@ def is_even(number: int) -> bool:
 
 def is_vowel(letter: str) -> bool:
     try:
-        if letter in 'aeiou':
+        if letter.lower() in 'aeiou':
             return True
         else:
             return False
@@ -20,12 +20,12 @@ def is_vowel(letter: str) -> bool:
 
 def compute_expected_answer(position: str, letter: str, number: int) -> bool:
     try:
-        if position == "up":
+        if position.lower() == "top":
             if is_even(number):
                 return True
             else:
                 return False
-        elif position == "down":
+        elif position.lower() == "bottom":
             if is_vowel(letter):
                 return True
             else:
