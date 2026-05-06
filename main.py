@@ -12,10 +12,14 @@ pygame.init()
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption("Brain Shift")
 
+# TODO - Fare fase 8
+
 user_answer = None
+
 score = 0
-correct_answer = 0
-wrong_answer = 0
+
+correct_answers = 0
+wrong_answers = 0
 
 rng = random.Random(42)
 
@@ -38,9 +42,9 @@ while running:
                 user_answer = False
                 is_correct = user_answer == current_trial.expected_answer
                 if is_correct:
-                    correct_answer += 1
+                    correct_answers += 1
                 else:
-                    wrong_answer += 1
+                    wrong_answers += 1
                 apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
@@ -48,9 +52,9 @@ while running:
                 user_answer = True
                 is_correct = user_answer == current_trial.expected_answer
                 if is_correct:
-                    correct_answer += 1
+                    correct_answers += 1
                 else:
-                    wrong_answer += 1
+                    wrong_answers += 1
                 apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
