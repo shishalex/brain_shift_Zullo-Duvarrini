@@ -2,8 +2,8 @@ import pygame
 import sys
 import config
 import generator
+import ui
 from scoring import apply_answer
-from ui import draw_card
 import random
 from models import Trial
 
@@ -24,6 +24,8 @@ wrong_answers = 0
 rng = random.Random(42)
 
 current_trial = generator.generate_trial(rng)
+total_time = 30.0
+time_remaining = 30.0
 
 clock = pygame.time.Clock()
 
@@ -59,8 +61,11 @@ while running:
                 current_trial = generator.generate_trial(rng)
 
 
-    screen.fill((119,136,153))
-    draw_card(screen, current_trial, config)
+    screen.fill((235, 250, 255))
+    ui.draw_timer_bar(screen, time_remaining, total_time)
+    ui.draw_score(screen, score)
+    ui.draw_card(screen, current_trial)
+    ui.draw_response_buttons(screen)
 
     pygame.display.flip()
 
