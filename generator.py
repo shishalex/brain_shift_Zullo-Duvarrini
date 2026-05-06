@@ -1,8 +1,10 @@
+import random
+
 from models import Trial
 from rules import compute_expected_answer
 
 
-def generate_trial(rng) -> Trial:
+def generate_trial(rng: random.Random) -> Trial:
     position = rng.choice(["top", "bottom"])
 
     letters = "abcdefghijklmnopqrstuvwxyz"

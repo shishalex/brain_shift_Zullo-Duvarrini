@@ -1,22 +1,25 @@
 import pygame
 import sys
 import config
+import generator
+from scoring import apply_answer
 from ui import draw_card
+import random
 from models import Trial
 
 pygame.init()
 
-screen_width = 800
-screen_height = 600
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption("Brain Shift")
 
-current_trial = Trial(
-    letter="A",
-    number=7,
-    position="TOP",
-    expected_answer=True
-)
+user_answer = None
+score = 0
+correct_answer = 0
+wrong_answer = 0
+
+rng = random.Random(42)
+
+current_trial = generator.generate_trial(rng)
 
 clock = pygame.time.Clock()
 
@@ -30,6 +33,27 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
+
+            if event.type == pygame.K_LEFT:
+                user_answer = False
+                is_correct = user_answer == current_trial.expected_answer
+                if is_correct:
+                    correct_answer += 1
+                else:
+                    wrong_answer += 1
+                apply_answer(score, is_correct)
+                current_trial = generator.generate_trial(rng)
+
+            if event.type == pygame.K_RIGHT:
+                user_answer = True
+                is_correct = user_answer == current_trial.expected_answer
+                if is_correct:
+                    correct_answer += 1
+                else:
+                    wrong_answer += 1
+                apply_answer(score, is_correct)
+                current_trial = generator.generate_trial(rng)
+
 
     screen.fill((0, 0, 0))
     draw_card(screen, current_trial, config)
