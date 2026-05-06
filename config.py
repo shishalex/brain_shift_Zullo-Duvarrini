@@ -1,3 +1,7 @@
+import pygame
+
+pygame.font.init()
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT= 600
 
@@ -5,6 +9,9 @@ CARD_WIDTH = 350
 CARD_HEIGHT = 220
 GAP = 40
 CARD_COLOR = (255,255,255)
+TEXT_COLOR = (0,0,0)
+
+FONT = pygame.font.SysFont("Comic Sans", 100, bold=True)
 
 TOTAL_BLOCK_HEIGHT = (CARD_HEIGHT * 2) + GAP
 VERTICAL_START = (SCREEN_HEIGHT - TOTAL_BLOCK_HEIGHT) // 2

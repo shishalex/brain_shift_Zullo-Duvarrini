@@ -34,7 +34,7 @@ while running:
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-            if event.type == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT:
                 user_answer = False
                 is_correct = user_answer == current_trial.expected_answer
                 if is_correct:
@@ -44,7 +44,7 @@ while running:
                 apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
-            if event.type == pygame.K_RIGHT:
+            if event.key == pygame.K_RIGHT:
                 user_answer = True
                 is_correct = user_answer == current_trial.expected_answer
                 if is_correct:
@@ -55,7 +55,7 @@ while running:
                 current_trial = generator.generate_trial(rng)
 
 
-    screen.fill((0, 0, 0))
+    screen.fill((119,136,153))
     draw_card(screen, current_trial, config)
 
     pygame.display.flip()
