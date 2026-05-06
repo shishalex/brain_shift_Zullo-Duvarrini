@@ -15,3 +15,15 @@ def draw_card(surface: pygame.Surface, trial: Trial, config):
     text_surf = config.FONT.render(card_text, True, config.TEXT_COLOR)
     text_rect = text_surf.get_rect(center=rect.center)
     surface.blit(text_surf, text_rect)
+
+def draw_hud():
+    # TODO - Disegnare:
+    #  secondi rimanenti
+    #  punteggio attuale
+    #  risposte giuste
+    #  risposte sbagliate
+    raise NotImplementedError()
+
+def draw_timer_bar():
+    # TODO
+    raise NotImplementedError()
