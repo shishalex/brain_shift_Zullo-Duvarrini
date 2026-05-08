@@ -22,8 +22,6 @@ wrong_answers = 0
 rng = random.Random(42)
 
 current_trial = generator.generate_trial(rng)
-total_time = 30.0
-time_remaining = 30.0
 
 clock = pygame.time.Clock()
 

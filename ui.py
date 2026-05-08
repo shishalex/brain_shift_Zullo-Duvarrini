@@ -19,28 +19,28 @@ def draw_card(surface: pygame.Surface, trial: Trial):
 
     surface.blit(text_surf, text_rect)
 
-def draw_timer_bar(surface: pygame.Surface, time_left: float, total_time: float):
-    x, y = 40, 20
-    width = config.SCREEN_WIDTH - 250
-    height = 30
+def draw_timer_bar(surface: pygame.Surface, remaining: float, duration: int):
+    pygame.draw.rect(surface, config.TIMER_BAR_BG_COLOR, pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, config.TIMER_BAR_W, config.TIMER_BAR_H), border_radius=6)
 
-    bg_rect = pygame.Rect(x, y, width, height)
-    pygame.draw.rect(surface, (230, 230, 230), bg_rect, border_radius=10)
+    fill_w = bar_fill_width(remaining, duration, config.TIMER_BAR_W)
+    if remaining > duration * 0.6:
+        color = (80, 200, 80)  # verde
+    elif remaining > duration * 0.3:
+        color = (220, 200, 80)  # giallo
+    else:
+        color = (220, 80, 80)
+    if fill_w > 0:
+        pygame.draw.rect(surface, color, pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, fill_w, config.TIMER_BAR_H), border_radius=6)
 
-    progress = max(0.0, min(float(time_left) / float(total_time), 1.0))
+def bar_fill_width(remaining: float, duration: int, bar_width: int) -> int:
+    ratio = remaining / duration
+    fill_w = int(ratio * bar_width)
 
-    fill_rect = pygame.Rect(x, y, int(width * progress), height)
-    if progress > 0:
-        pygame.draw.rect(surface, (144, 238, 144), fill_rect, border_radius=10)
-
-    pygame.draw.rect(surface, (0, 0, 0), bg_rect, 2, border_radius=10)
+    return max(0, min(fill_w, bar_width))
 
 
 def draw_score(surface: pygame.Surface, score: int):
-    width, height = 140, 40
-    x = config.SCREEN_WIDTH - width - 40
-    y = 20
-    score_rect = pygame.Rect(x, y, width, height)
+    score_rect = pygame.Rect(config.SCORE_BAR_X, config.SCORE_BAR_Y, config.SCORE_BAR_W, config.SCORE_BAR_H)
     pygame.draw.rect(surface, (173, 216, 230), score_rect, border_radius=10)
     pygame.draw.rect(surface, (0, 0, 0), score_rect, 2, border_radius=10)
 
@@ -49,6 +49,6 @@ def draw_score(surface: pygame.Surface, score: int):
     surface.blit(text_surf, text_rect)
 
 
-def draw_answers(surface: pygame.Surface):
+def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: int):
     # TODO
     pass
