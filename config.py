@@ -29,6 +29,7 @@ SCORE_BAR_Y = 20
 
 card_font = pygame.font.SysFont("Comic Sans", 100, bold=True)
 score_font = pygame.font.SysFont("Arial", 22, bold=True)
+timer_font = pygame.font.SysFont("Roboto", 40, bold=True)
 
 TOTAL_BLOCK_HEIGHT = (CARD_HEIGHT * 2) + GAP
 VERTICAL_START = (SCREEN_HEIGHT - TOTAL_BLOCK_HEIGHT) // 2

@@ -27,6 +27,7 @@ clock = pygame.time.Clock()
 
 # --- MAIN LOOP ---
 running = True
+game_started = True #Cambiarlo in False quando implementiamo la schermata di avvio
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -56,11 +57,18 @@ while running:
                 score = apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
+        if game_started:
+            remaining = config.time_remaining(config.start_time, config.COUNTDOWN)
+            expired = config.is_expired(config.start_time, config.COUNTDOWN)
+        else:
+            remaining = float(config.COUNTDOWN)
+            expired = False
 
     screen.fill((235, 250, 255))
-    ui.draw_timer_bar(screen, time_remaining, total_time)
-    ui.draw_score(screen, score)
     ui.draw_card(screen, current_trial)
+    ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)
+    ui.draw_timer_text(screen, remaining, expired)
+    ui.draw_score(screen, score)
 
     pygame.display.flip()
 

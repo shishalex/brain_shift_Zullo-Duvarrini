@@ -38,6 +38,19 @@ def bar_fill_width(remaining: float, duration: int, bar_width: int) -> int:
 
     return max(0, min(fill_w, bar_width))
 
+def draw_timer_text(surface: pygame.Surface, remaining: float, expired: bool):
+    if expired:
+        text = "Tempo scaduto!"
+        color = (139, 26, 26)
+    else:
+        text = str(int(remaining))
+        color = (0, 0, 0)
+
+    surf = config.timer_font.render(text, True, color)
+    y = config.TIMER_BAR_Y + config.TIMER_BAR_H + 10
+    rect = surf.get_rect(centerx=config.SCREEN_WIDTH // 2, top=y)
+    surface.blit(surf, rect)
+
 
 def draw_score(surface: pygame.Surface, score: int):
     score_rect = pygame.Rect(config.SCORE_BAR_X, config.SCORE_BAR_Y, config.SCORE_BAR_W, config.SCORE_BAR_H)
@@ -51,4 +64,14 @@ def draw_score(surface: pygame.Surface, score: int):
 
 def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: int):
     # TODO
+    pass
+
+def draw_game_over(surface: pygame.Surface):
+    # TODO
+    pass
+
+def draw_game_start(surface: pygame.Surface):
+    # TODO - Fare finestra di avvio del gioco:
+    #        La finestra mostra "premi barra spaziatrice per avviare"
+    #        Quando si avvia e game_started è True appare tutto il resto (Questo nel main)
     pass
