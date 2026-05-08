@@ -1,7 +1,5 @@
 # Brain Shift — progetto di gruppo
 
-> Questa è la prima pagina che vede chi apre il vostro repository. Deve essere chiara, pulita, utile. Niente fuffa.
-
 ## Chi siamo
 
 - Zullo Alessandro — alessandro.zullo@jcmaxwell.it / shishalex
@@ -11,30 +9,29 @@ Classe 4A Informatica — a.s. 2025-26.
 
 ## Cos'è Brain Shift
 
-Scrivete 3-5 righe che spiegano il gioco a qualcuno che non l'ha mai visto. Non copia-incollate dalla specifica, riscrivete a parole vostre. Se non riuscite a riassumerlo, non l'avete capito.
+Brain Shift è un gioco di velocità e memoria. Il gioco consiste in un'apparizione di una card al centro dello schermo con all'interno una lettera e un numero. In base al posizionamento della carta dovrai rispondere alla domanda: "E' Pari?" o "E' una vocale?", rispondendo sì o no.
 
 ## Come giocare
 
 Istruzioni minime ma complete per far partire il gioco da clone pulito:
 
 ```bash
-git clone <URL-del-vostro-repo>
-cd <nome-cartella>
+git clone https://github.com/shishalex/brain_shift_Zullo-Duvarrini
+cd brain_shift_Zullo-Duvarrini
 pip install -r requirements.txt
 python main.py
 ```
 
 Specificate:
 
-- versione Python richiesta (es. Python 3.11+)
-- versione pygame richiesta
-- altre dipendenze se ce ne sono
+- versione Python richiesta: Python 3.11 - Python 3.13
+- versione pygame richiesta: 2.6.1
+- versione pytest richiesta: 9.0.3
 
 ## Controlli
 
-- ← freccia sinistra: …
-- → freccia destra: …
-- … (eventuale mouse, pausa, ecc.)
+- ← freccia sinistra: per rispondere **SÌ** alla domanda
+- → freccia destra: per rispondere **NO** alla domanda
 
 ## Screenshot
 
@@ -47,9 +44,12 @@ Breve spiegazione di dove sta cosa:
 ```
 brain_shift/
 ├── main.py           ← entry point
+├── ui.py             ← interfaccia grafica
 ├── rules.py          ← logica regole
 ├── scoring.py        ← sistema scoring
-├── ...
+├── models.py         ← contenitore di classi
+├── generator.py      ← generatore di oggetti
+├── config.py         ← configurazione per l'interfaccia
 ├── docs/             ← documentazione
 └── tests/            ← test pytest
 ```
