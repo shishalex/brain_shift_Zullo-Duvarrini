@@ -12,8 +12,6 @@ pygame.init()
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption("Brain Shift")
 
-# TODO - Fare fase 8
-
 user_answer = None
 
 score = 0
@@ -47,7 +45,7 @@ while running:
                     correct_answers += 1
                 else:
                     wrong_answers += 1
-                apply_answer(score, is_correct)
+                score = apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
             if event.key == pygame.K_RIGHT:
@@ -57,7 +55,7 @@ while running:
                     correct_answers += 1
                 else:
                     wrong_answers += 1
-                apply_answer(score, is_correct)
+                score = apply_answer(score, is_correct)
                 current_trial = generator.generate_trial(rng)
 
 
@@ -65,7 +63,6 @@ while running:
     ui.draw_timer_bar(screen, time_remaining, total_time)
     ui.draw_score(screen, score)
     ui.draw_card(screen, current_trial)
-    ui.draw_response_buttons(screen)
 
     pygame.display.flip()
 

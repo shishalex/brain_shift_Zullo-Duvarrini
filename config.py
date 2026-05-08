@@ -1,6 +1,10 @@
+import time
+
 import pygame
 
 pygame.font.init()
+
+COUNTDOWN = 30
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT= 800
@@ -11,7 +15,8 @@ GAP = 40
 CARD_COLOR = (255,255,255)
 TEXT_COLOR = (0,0,0)
 
-FONT = pygame.font.SysFont("Comic Sans", 100, bold=True)
+card_font = pygame.font.SysFont("Comic Sans", 100, bold=True)
+score_font = pygame.font.SysFont("Arial", 22, bold=True)
 
 TOTAL_BLOCK_HEIGHT = (CARD_HEIGHT * 2) + GAP
 VERTICAL_START = (SCREEN_HEIGHT - TOTAL_BLOCK_HEIGHT) // 2
@@ -25,3 +30,15 @@ Y_POSITIONS = {
     "top": Y_TOP,
     "bottom": Y_BOTTOM
 }
+
+def time_elapsed(start: float) -> float:
+    return time.time() - start
+
+
+def time_remaining(start: float, duration: int) -> float:
+    elapsed = time_elapsed(start)
+    return max(0.0, duration - elapsed)
+
+
+def is_expired(start: float, duration: int) -> bool:
+    return time_elapsed(start) >= duration

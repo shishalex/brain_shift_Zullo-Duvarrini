@@ -6,12 +6,17 @@ from models import Trial
 def draw_card(surface: pygame.Surface, trial: Trial):
     y = config.Y_POSITIONS[trial.position]
     x = config.X_CENTER
+
     rect = pygame.Rect(x, y, config.CARD_WIDTH, config.CARD_HEIGHT)
+
     pygame.draw.rect(surface, config.CARD_COLOR, rect, border_radius=15)
     pygame.draw.rect(surface, (0, 0, 0), rect, 4, border_radius=15)
+
     content = f"{trial.letter.upper()} {trial.number}"
-    text_surf = config.FONT.render(content, True, config.TEXT_COLOR)
+
+    text_surf = config.card_font.render(content, True, config.TEXT_COLOR)
     text_rect = text_surf.get_rect(center=rect.center)
+
     surface.blit(text_surf, text_rect)
 
 def draw_timer_bar(surface: pygame.Surface, time_left: float, total_time: float):
@@ -39,20 +44,11 @@ def draw_score(surface: pygame.Surface, score: int):
     pygame.draw.rect(surface, (173, 216, 230), score_rect, border_radius=10)
     pygame.draw.rect(surface, (0, 0, 0), score_rect, 2, border_radius=10)
 
-    font_score = pygame.font.SysFont("Arial", 22, bold=True)
-    text_surf = font_score.render(f"Punti: {score}", True, config.TEXT_COLOR)
+    text_surf = config.score_font.render(f"Punti: {score}", True, config.TEXT_COLOR)
     text_rect = text_surf.get_rect(center=score_rect.center)
     surface.blit(text_surf, text_rect)
 
 
-def draw_response_buttons(surface: pygame.Surface):
-    btn_w, btn_h = 180, 80
-    btn_y = config.SCREEN_HEIGHT - 110
-    spacing = 50
-    start_x = (config.SCREEN_WIDTH - (btn_w * 2 + spacing)) // 2
-
-    pygame.draw.rect(surface, (255, 180, 180), (start_x, btn_y, btn_w, btn_h), border_radius=20)
-    pygame.draw.rect(surface, (0, 0, 0), (start_x, btn_y, btn_w, btn_h), 3, border_radius=20)
-
-    pygame.draw.rect(surface, (180, 255, 180), (start_x + btn_w + spacing, btn_y, btn_w, btn_h), border_radius=20)
-    pygame.draw.rect(surface, (0, 0, 0), (start_x + btn_w + spacing, btn_y, btn_w, btn_h), 3, border_radius=20)
+def draw_answers(surface: pygame.Surface):
+    # TODO
+    pass
