@@ -5,7 +5,6 @@ import generator
 import ui
 from scoring import apply_answer
 import random
-from models import Trial
 import time
 
 pygame.init()
@@ -13,24 +12,30 @@ pygame.init()
 screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
 pygame.display.set_caption("Brain Shift")
 
-user_answer = None
+# Stati del gioco
+STATE_START = "start"
+STATE_PLAYING = "playing"
+STATE_GAMEOVER = "gameover"
+game_state = STATE_START
+
+# Variabili di gioco
 score = 0
 correct_answers = 0
 wrong_answers = 0
 
-rng = random.Random(42)
+# Generatore random casuale
+rng = random.Random()
 current_trial = generator.generate_trial(rng)
 
 clock = pygame.time.Clock()
 
-# Variabili temporanee per il cambio di colore
+# Variabili per il feedback visivo (colore carta al tasto premuto)
 feedback_color = None
 feedback_until = 0.0
 feedback_trial = None
 
 # --- MAIN LOOP ---
 running = True
-game_started = True #Cambiarlo in False quando implementiamo la schermata di avvio
 
 while running:
     current_time = time.time()
@@ -40,68 +45,75 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
+            # Uscita immediata con ESC
             if event.key == pygame.K_ESCAPE:
                 running = False
 
-            if current_time > feedback_until:
-                if event.key == pygame.K_LEFT:
-                    user_answer = False
-                    is_correct = user_answer == current_trial.expected_answer
+            # Logica SCHERMATA INIZIALE
+            if game_state == STATE_START:
+                if event.key == pygame.K_SPACE:
+                    # Sincronizziamo il tempo di inizio al momento della pressione
+                    config.start_time = time.time()
+                    game_state = STATE_PLAYING
 
-                    # 1. Imposta lo stato del feedback
-                    feedback_color = config.CORRECT_CARD_COLOR if is_correct else config.WRONG_CARD_COLOR
-                    feedback_until = current_time + 0.15
-                    feedback_trial = current_trial  # Salva la carta corrente per colorarla
+            # Logica DURANTE IL GIOCO
+            elif game_state == STATE_PLAYING:
+                if current_time > feedback_until:
+                    is_correct = None
 
-                    if is_correct:
-                        correct_answers += 1
-                    else:
-                        wrong_answers += 1
-                    score = apply_answer(score, is_correct)
-                    current_trial = generator.generate_trial(rng)
+                    if event.key == pygame.K_LEFT:
+                        is_correct = (current_trial.expected_answer == False)
+                    elif event.key == pygame.K_RIGHT:
+                        is_correct = (current_trial.expected_answer == True)
 
-                if event.key == pygame.K_RIGHT:
-                    user_answer = True
-                    is_correct = user_answer == current_trial.expected_answer
+                    if is_correct is not None:
+                        # Imposta feedback visivo
+                        feedback_color = config.CORRECT_CARD_COLOR if is_correct else config.WRONG_CARD_COLOR
+                        feedback_until = current_time + 0.2  # Durata feedback
+                        feedback_trial = current_trial
 
-                    # 1. Imposta lo stato del feedback
-                    feedback_color = config.CORRECT_CARD_COLOR if is_correct else config.WRONG_CARD_COLOR
-                    feedback_until = current_time + 0.30
-                    feedback_trial = current_trial  # Salva la carta corrente per colorarla
+                        # Aggiorna statistiche e punteggio
+                        if is_correct:
+                            correct_answers += 1
+                        else:
+                            wrong_answers += 1
 
-                    if is_correct:
-                        correct_answers += 1
-                    else:
-                        wrong_answers += 1
-                    score = apply_answer(score, is_correct)
-                    current_trial = generator.generate_trial(rng)
+                        score = apply_answer(score, is_correct)
+                        # Genera nuova sfida in modo casuale
+                        current_trial = generator.generate_trial(rng)
 
-        if game_started:
-            remaining = config.time_remaining(config.start_time, config.COUNTDOWN)
-            expired = config.is_expired(config.start_time, config.COUNTDOWN)
-        else:
-            remaining = float(config.COUNTDOWN)
-            expired = False
-
+    # --- DISEGNO ---
     screen.fill((235, 250, 255))
 
-    if current_time < feedback_until:
-        # Se il feedback è attivo, disegna la vecchia carta con il colore di feedback (verde/rosso)
-        ui.draw_card(screen, feedback_trial, feedback_color)
-        if correct_answers < 10:
-            ui.draw_hint(screen, feedback_trial)
-    else:
-        # Altrimenti disegna la carta corrente normalmente (bianca)
-        ui.draw_card(screen, current_trial)
-        if correct_answers < 10:
-            ui.draw_hint(screen, current_trial)
+    if game_state == STATE_START:
+        ui.draw_game_start(screen)
 
-    ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)
-    ui.draw_timer_text(screen, remaining, expired)
-    ui.draw_score(screen, score)
+    elif game_state == STATE_PLAYING:
+        remaining = config.time_remaining(config.start_time, config.COUNTDOWN)
+        expired = config.is_expired(config.start_time, config.COUNTDOWN)
+
+        if expired:
+            # Richiama la funzione passando lo score corrente
+            ui.draw_game_over(screen, score)
+        else:
+            # Disegna la carta e le domande (hints) permanentemente
+            if current_time < feedback_until:
+                ui.draw_card(screen, feedback_trial, feedback_color)
+                ui.draw_hint(screen, feedback_trial)
+            else:
+                ui.draw_card(screen, current_trial)
+                ui.draw_hint(screen, current_trial)
+
+            # Interfaccia HUD
+            ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)
+            ui.draw_timer_text(screen, remaining, expired)
+            ui.draw_score(screen, score)
+            ui.draw_answers(screen, correct_answers, wrong_answers)
+
+    elif game_state == STATE_GAMEOVER:
+        ui.draw_game_over(screen, score)
 
     pygame.display.flip()
-
     clock.tick(60)
 
 pygame.quit()

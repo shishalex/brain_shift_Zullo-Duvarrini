@@ -102,15 +102,68 @@ def draw_hint(surface: pygame.Surface, trial: Trial):
 
 
 def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: int):
-    # TODO
-    pass
+    # Costanti per i pulsanti
+    btn_w = 220
+    btn_h = 80
+    y_pos = config.SCREEN_HEIGHT - btn_h - 40
 
-def draw_game_over(surface: pygame.Surface):
-    # TODO
-    pass
+    # Bottone NO (Sinistra)
+    no_rect = pygame.Rect(config.SCREEN_WIDTH // 2 - btn_w - 30, y_pos, btn_w, btn_h)
+    pygame.draw.rect(surface, (255, 204, 204), no_rect, border_radius=20)  # Sfondo rosso chiaro
+    pygame.draw.rect(surface, (230, 50, 50), no_rect, 4, border_radius=20)  # Bordo rosso scuro
+
+    no_text = config.timer_font.render("NO (<-)", True, (230, 50, 50))
+    no_text_rect = no_text.get_rect(center=no_rect.center)
+    surface.blit(no_text, no_text_rect)
+
+    # Bottone SI (Destra)
+    si_rect = pygame.Rect(config.SCREEN_WIDTH // 2 + 30, y_pos, btn_w, btn_h)
+    pygame.draw.rect(surface, (204, 255, 204), si_rect, border_radius=20)  # Sfondo verde chiaro
+    pygame.draw.rect(surface, (50, 200, 50), si_rect, 4, border_radius=20)  # Bordo verde scuro
+
+    si_text = config.timer_font.render("SI (->)", True, (50, 200, 50))
+    si_text_rect = si_text.get_rect(center=si_rect.center)
+    surface.blit(si_text, si_text_rect)
+
+    # Testo contatori (posizionato in basso in mezzo)
+    stats_text = config.score_font.render(f"Corrette: {correct_answers}   Sbagliate: {wrong_answers}", True,
+                                          config.TEXT_COLOR)
+    stats_rect = stats_text.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT - 15))
+    surface.blit(stats_text, stats_rect)
+
+
+def draw_game_over(surface, score):
+    # Utilizziamo card_font per il messaggio principale (è il font più grande in config)
+    testo_fine = config.card_font.render("TEMPO SCADUTO!", True, config.WRONG_CARD_COLOR)
+
+    # Utilizziamo timer_font per mostrare il punteggio
+    testo_score = config.timer_font.render(f"Punteggio Finale: {score}", True, config.TEXT_COLOR)
+
+    # Utilizziamo hint_font per le istruzioni di uscita
+    testo_esc = config.hint_font.render("Premi ESC per uscire", True, config.TEXT_COLOR)
+
+    # Posizionamento basato sulle costanti esistenti in config.py
+    surface.blit(testo_fine, (config.SCREEN_WIDTH // 2 - testo_fine.get_width() // 2, 250))
+    surface.blit(testo_score, (config.SCREEN_WIDTH // 2 - testo_score.get_width() // 2, 400))
+    surface.blit(testo_esc, (config.SCREEN_WIDTH // 2 - testo_esc.get_width() // 2, 550))
+
 
 def draw_game_start(surface: pygame.Surface):
-    # TODO - Fare finestra di avvio del gioco:
-    #        La finestra mostra "premi barra spaziatrice per avviare"
-    #        Quando si avvia e game_started è True appare tutto il resto (Questo nel main)
-    pass
+    # Sfondo iniziale pulito
+    surface.fill((235, 250, 255))
+
+    # Titolo del Gioco
+    title_surf = config.card_font.render("BRAIN SHIFT", True, (0, 0, 0))
+    title_rect = title_surf.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 - 100))
+    surface.blit(title_surf, title_rect)
+
+    # Testo avvio
+    start_surf = config.timer_font.render("Premi la BARRA SPAZIATRICE per avviare", True, (50, 50, 50))
+    start_rect = start_surf.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 20))
+    surface.blit(start_surf, start_rect)
+
+    # Istruzioni dei comandi
+    inst_surf = config.hint_font.render("Usa la Freccia SINISTRA per NO e la Freccia DESTRA per SI", True,
+                                        (100, 100, 100))
+    inst_rect = inst_surf.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 80))
+    surface.blit(inst_surf, inst_rect)
