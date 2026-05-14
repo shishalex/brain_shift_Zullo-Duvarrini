@@ -88,9 +88,13 @@ while running:
     if current_time < feedback_until:
         # Se il feedback è attivo, disegna la vecchia carta con il colore di feedback (verde/rosso)
         ui.draw_card(screen, feedback_trial, feedback_color)
+        if correct_answers < 10:
+            ui.draw_hint(screen, feedback_trial)
     else:
         # Altrimenti disegna la carta corrente normalmente (bianca)
         ui.draw_card(screen, current_trial)
+        if correct_answers < 10:
+            ui.draw_hint(screen, current_trial)
 
     ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)
     ui.draw_timer_text(screen, remaining, expired)
