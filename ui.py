@@ -3,13 +3,13 @@ import config
 from models import Trial
 
 
-def draw_card(surface: pygame.Surface, trial: Trial):
+def draw_card(surface: pygame.Surface, trial: Trial, card_color: tuple=config.CARD_COLOR):
     y = config.Y_POSITIONS[trial.position]
     x = config.X_CENTER
 
     rect = pygame.Rect(x, y, config.CARD_WIDTH, config.CARD_HEIGHT)
 
-    pygame.draw.rect(surface, config.CARD_COLOR, rect, border_radius=15)
+    pygame.draw.rect(surface, card_color, rect, border_radius=15)
     pygame.draw.rect(surface, (0, 0, 0), rect, 4, border_radius=15)
 
     content = f"{trial.letter.upper()} {trial.number}"

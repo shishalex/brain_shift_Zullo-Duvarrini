@@ -1,5 +1,4 @@
 import time
-
 import pygame
 
 pygame.font.init()
@@ -20,6 +19,8 @@ CARD_WIDTH = 350
 CARD_HEIGHT = 220
 GAP = 40
 CARD_COLOR = (255,255,255)
+CORRECT_CARD_COLOR = (50,205,50)
+WRONG_CARD_COLOR = (255,99,71)
 TEXT_COLOR = (0,0,0)
 
 SCORE_BAR_W = 140
