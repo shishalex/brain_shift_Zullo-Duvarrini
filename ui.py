@@ -92,11 +92,9 @@ def draw_hint(surface: pygame.Surface, trial: Trial):
     pygame.draw.line(surface, config.HINT_BORDER_COLOR, arrow_start, arrow_end, 3)
 
     if trial.position == "top":
-        # Punta rivolta a sinistra (<--)
         point1 = (arrow_end[0] + 10, arrow_end[1] - 8)
         point2 = (arrow_end[0] + 10, arrow_end[1] + 8)
     else:
-        # Punta rivolta a destra (-->)
         point1 = (arrow_end[0] - 10, arrow_end[1] - 8)
         point2 = (arrow_end[0] - 10, arrow_end[1] + 8)
 

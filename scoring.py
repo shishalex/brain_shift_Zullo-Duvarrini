@@ -7,3 +7,7 @@ def apply_answer(score: int, is_correct: bool) -> int:
             return score - 5
     except (TypeError, ValueError) as e:
         print(f"An error occured: {e}")
+
+def multiplier(score: int, correct_answers) -> int:
+    # TODO
+    pass
