@@ -109,6 +109,7 @@ def draw_hint(surface: pygame.Surface, trial: Trial):
 
 
 def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: int):
+    # TODO - Modificare costanti
     # Costanti per i pulsanti
     btn_w = 220
     btn_h = 80
@@ -168,3 +169,7 @@ def draw_game_start(surface: pygame.Surface):
                                         (100, 100, 100))
     inst_rect = inst_surf.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 80))
     surface.blit(inst_surf, inst_rect)
+
+def draw_meter_bar(surface: pygame.Surface):
+    # TODO
+    pass

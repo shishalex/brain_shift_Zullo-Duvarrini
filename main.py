@@ -22,6 +22,8 @@ game_state = STATE_START
 score = 0
 correct_answers = 0
 wrong_answers = 0
+meter = 0
+multiplier = 1
 
 # Generatore random casuale
 rng = random.Random()
@@ -75,8 +77,15 @@ while running:
                         # Aggiorna statistiche e punteggio
                         if is_correct:
                             correct_answers += 1
+                            meter += 1
+                            if meter > 3:
+                                meter = 0
+                                multiplier = min(multiplier + 1, 10)
                         else:
                             wrong_answers += 1
+                            if meter > 0:
+                                meter = 0
+                                multiplier = min(multiplier - 1, 1)
 
                         score = apply_answer(score, is_correct)
                         # Genera nuova sfida in modo casuale
@@ -94,6 +103,7 @@ while running:
 
         if expired:
             # Richiama la funzione passando lo score corrente
+            score += 40 * multiplier
             ui.draw_game_over(screen, score)
         else:
             # Disegna la carta e le domande (hints) permanentemente
