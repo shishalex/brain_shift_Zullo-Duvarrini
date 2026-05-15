@@ -37,7 +37,7 @@ Linee guida, non obbligatorie in modo rigido. Ogni entry dovrebbe toccare almeno
 
 ### Settimana 1 (22-28 aprile 2026)
 
-_Scrivete qui._
+Durante la prima settimana abbiamo inizializzato il gioco. Creato il repository e abbiamo messo su GitHub il progetto.
 
 ### Settimana 2 (29 aprile - 5 maggio 2026)
 
@@ -49,7 +49,7 @@ _Scrivete qui._
 
 ### Settimana finale (13-17 maggio 2026)
 
-_Scrivete qui._
+Durante questa settimana abbiamo terminato tutto ciò che c'era da finire. Abbiamo aggiunto la pagina di game start e la pagina di game over.
 
 ---
 
