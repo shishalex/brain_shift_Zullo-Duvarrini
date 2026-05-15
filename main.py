@@ -99,10 +99,12 @@ while running:
             # Disegna la carta e le domande (hints) permanentemente
             if current_time < feedback_until:
                 ui.draw_card(screen, feedback_trial, feedback_color)
-                ui.draw_hint(screen, feedback_trial)
+                if correct_answers < 10:
+                    ui.draw_hint(screen, feedback_trial)
             else:
                 ui.draw_card(screen, current_trial)
-                ui.draw_hint(screen, current_trial)
+                if correct_answers < 10:
+                    ui.draw_hint(screen, current_trial)
 
             # Interfaccia HUD
             ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)

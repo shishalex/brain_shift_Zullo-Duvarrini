@@ -3,7 +3,7 @@ import config
 from models import Trial
 
 
-def draw_card(surface: pygame.Surface, trial: Trial, card_color: tuple=config.CARD_COLOR):
+def draw_card(surface: pygame.Surface, trial: Trial, card_color: tuple = config.CARD_COLOR):
     y = config.Y_POSITIONS[trial.position]
     x = config.X_CENTER
 
@@ -19,8 +19,11 @@ def draw_card(surface: pygame.Surface, trial: Trial, card_color: tuple=config.CA
 
     surface.blit(text_surf, text_rect)
 
+
 def draw_timer_bar(surface: pygame.Surface, remaining: float, duration: int):
-    pygame.draw.rect(surface, config.TIMER_BAR_BG_COLOR, pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, config.TIMER_BAR_W, config.TIMER_BAR_H), border_radius=6)
+    pygame.draw.rect(surface, config.TIMER_BAR_BG_COLOR,
+                     pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, config.TIMER_BAR_W, config.TIMER_BAR_H),
+                     border_radius=6)
 
     fill_w = bar_fill_width(remaining, duration, config.TIMER_BAR_W)
     if remaining > duration * 0.6:
@@ -30,13 +33,17 @@ def draw_timer_bar(surface: pygame.Surface, remaining: float, duration: int):
     else:
         color = (220, 80, 80)
     if fill_w > 0:
-        pygame.draw.rect(surface, color, pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, fill_w, config.TIMER_BAR_H), border_radius=6)
+        pygame.draw.rect(surface, color,
+                         pygame.Rect(config.TIMER_BAR_X, config.TIMER_BAR_Y, fill_w, config.TIMER_BAR_H),
+                         border_radius=6)
+
 
 def bar_fill_width(remaining: float, duration: int, bar_width: int) -> int:
     ratio = remaining / duration
     fill_w = int(ratio * bar_width)
 
     return max(0, min(fill_w, bar_width))
+
 
 def draw_timer_text(surface: pygame.Surface, remaining: float, expired: bool):
     if expired:
@@ -112,7 +119,7 @@ def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: i
     pygame.draw.rect(surface, (255, 204, 204), no_rect, border_radius=20)  # Sfondo rosso chiaro
     pygame.draw.rect(surface, (230, 50, 50), no_rect, 4, border_radius=20)  # Bordo rosso scuro
 
-    no_text = config.timer_font.render("NO (<-)", True, (230, 50, 50))
+    no_text = config.timer_font.render(f"Sbagliate: {wrong_answers}", True, (230, 50, 50))
     no_text_rect = no_text.get_rect(center=no_rect.center)
     surface.blit(no_text, no_text_rect)
 
@@ -121,15 +128,9 @@ def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: i
     pygame.draw.rect(surface, (204, 255, 204), si_rect, border_radius=20)  # Sfondo verde chiaro
     pygame.draw.rect(surface, (50, 200, 50), si_rect, 4, border_radius=20)  # Bordo verde scuro
 
-    si_text = config.timer_font.render("SI (->)", True, (50, 200, 50))
+    si_text = config.timer_font.render(f"Corrette: {correct_answers}", True, (50, 200, 50))
     si_text_rect = si_text.get_rect(center=si_rect.center)
     surface.blit(si_text, si_text_rect)
-
-    # Testo contatori (posizionato in basso in mezzo)
-    stats_text = config.score_font.render(f"Corrette: {correct_answers}   Sbagliate: {wrong_answers}", True,
-                                          config.TEXT_COLOR)
-    stats_rect = stats_text.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT - 15))
-    surface.blit(stats_text, stats_rect)
 
 
 def draw_game_over(surface, score):
