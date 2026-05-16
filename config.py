@@ -52,6 +52,11 @@ HINT_GAP = 30
 HINT_BG_COLOR = (255, 255, 255)
 HINT_BORDER_COLOR = (0, 0, 0)
 
+# Costanti Box Risposte
+ANSWERS_WIDTH = 220
+ANSWERS_HEIGHT = 80
+ANSWERS_Y = SCREEN_HEIGHT - ANSWERS_HEIGHT - 40
+
 # Font Usati
 card_font = pygame.font.SysFont("Comic Sans", 100, bold=True)
 score_font = pygame.font.SysFont("Arial", 22, bold=True)

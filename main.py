@@ -87,8 +87,7 @@ while running:
                                 meter = 0
                                 multiplier = min(multiplier - 1, 1)
 
-                        score = apply_answer(score, is_correct)
-                        # Genera nuova sfida in modo casuale
+                        score = apply_answer(score, is_correct, multiplier)
                         current_trial = generator.generate_trial(rng)
 
     # --- DISEGNO ---
@@ -123,6 +122,7 @@ while running:
             ui.draw_answers(screen, correct_answers, wrong_answers)
 
     elif game_state == STATE_GAMEOVER:
+        score += 40 * multiplier
         ui.draw_game_over(screen, score)
 
     pygame.display.flip()

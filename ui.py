@@ -109,45 +109,39 @@ def draw_hint(surface: pygame.Surface, trial: Trial):
 
 
 def draw_answers(surface: pygame.Surface, correct_answers: int, wrong_answers: int):
-    # TODO - Modificare costanti
-    # Costanti per i pulsanti
-    btn_w = 220
-    btn_h = 80
-    y_pos = config.SCREEN_HEIGHT - btn_h - 40
-
     # Bottone NO (Sinistra)
-    no_rect = pygame.Rect(config.SCREEN_WIDTH // 2 - btn_w - 30, y_pos, btn_w, btn_h)
-    pygame.draw.rect(surface, (255, 204, 204), no_rect, border_radius=20)  # Sfondo rosso chiaro
-    pygame.draw.rect(surface, (230, 50, 50), no_rect, 4, border_radius=20)  # Bordo rosso scuro
+    wrong_answers_rect = pygame.Rect(config.SCREEN_WIDTH // 2 - config.ANSWERS_WIDTH - 30, config.ANSWERS_Y, config.ANSWERS_WIDTH, config.ANSWERS_HEIGHT)
+    pygame.draw.rect(surface, (255, 204, 204), wrong_answers_rect, border_radius=20)  # Sfondo rosso chiaro
+    pygame.draw.rect(surface, (230, 50, 50), wrong_answers_rect, 4, border_radius=20)  # Bordo rosso scuro
 
-    no_text = config.timer_font.render(f"Sbagliate: {wrong_answers}", True, (230, 50, 50))
-    no_text_rect = no_text.get_rect(center=no_rect.center)
-    surface.blit(no_text, no_text_rect)
+    wrong_answers_text = config.timer_font.render(f"Sbagliate: {wrong_answers}", True, (230, 50, 50))
+    wrong_answers_text_rect = wrong_answers_text.get_rect(center=wrong_answers_rect.center)
+    surface.blit(wrong_answers_text, wrong_answers_text_rect)
 
     # Bottone SI (Destra)
-    si_rect = pygame.Rect(config.SCREEN_WIDTH // 2 + 30, y_pos, btn_w, btn_h)
-    pygame.draw.rect(surface, (204, 255, 204), si_rect, border_radius=20)  # Sfondo verde chiaro
-    pygame.draw.rect(surface, (50, 200, 50), si_rect, 4, border_radius=20)  # Bordo verde scuro
+    correct_answers_rect = pygame.Rect(config.SCREEN_WIDTH // 2 + 30, config.ANSWERS_Y, config.ANSWERS_WIDTH, config.ANSWERS_HEIGHT)
+    pygame.draw.rect(surface, (204, 255, 204), correct_answers_rect, border_radius=20)  # Sfondo verde chiaro
+    pygame.draw.rect(surface, (50, 200, 50), correct_answers_rect, 4, border_radius=20)  # Bordo verde scuro
 
-    si_text = config.timer_font.render(f"Corrette: {correct_answers}", True, (50, 200, 50))
-    si_text_rect = si_text.get_rect(center=si_rect.center)
-    surface.blit(si_text, si_text_rect)
+    correct_answers_text = config.timer_font.render(f"Corrette: {correct_answers}", True, (50, 200, 50))
+    correct_answers_text_rect = correct_answers_text.get_rect(center=correct_answers_rect.center)
+    surface.blit(correct_answers_text, correct_answers_text_rect)
 
 
 def draw_game_over(surface, score):
     # Utilizziamo card_font per il messaggio principale (è il font più grande in config)
-    testo_fine = config.card_font.render("TEMPO SCADUTO!", True, config.WRONG_CARD_COLOR)
+    end_text = config.card_font.render("TEMPO SCADUTO!", True, config.WRONG_CARD_COLOR)
 
     # Utilizziamo timer_font per mostrare il punteggio
-    testo_score = config.timer_font.render(f"Punteggio Finale: {score}", True, config.TEXT_COLOR)
+    score_text = config.timer_font.render(f"Punteggio Finale: {score}", True, config.TEXT_COLOR)
 
     # Utilizziamo hint_font per le istruzioni di uscita
-    testo_esc = config.hint_font.render("Premi ESC per uscire", True, config.TEXT_COLOR)
+    esc_text = config.hint_font.render("Premi ESC per uscire", True, config.TEXT_COLOR)
 
     # Posizionamento basato sulle costanti esistenti in config.py
-    surface.blit(testo_fine, (config.SCREEN_WIDTH // 2 - testo_fine.get_width() // 2, 250))
-    surface.blit(testo_score, (config.SCREEN_WIDTH // 2 - testo_score.get_width() // 2, 400))
-    surface.blit(testo_esc, (config.SCREEN_WIDTH // 2 - testo_esc.get_width() // 2, 550))
+    surface.blit(end_text, (config.SCREEN_WIDTH // 2 - end_text.get_width() // 2, 250))
+    surface.blit(score_text, (config.SCREEN_WIDTH // 2 - score_text.get_width() // 2, 400))
+    surface.blit(esc_text, (config.SCREEN_WIDTH // 2 - esc_text.get_width() // 2, 550))
 
 
 def draw_game_start(surface: pygame.Surface):

@@ -2,8 +2,13 @@
 def apply_answer(score: int, is_correct: bool, multiplier: int) -> int:
     try:
         if is_correct:
-            return score + 10 * multiplier
+            score += (10 * multiplier)
+            return score
         else:
-            return score - 5
+            if score >= 5:
+                return score - 5
+            else:
+                return 0
+
     except (TypeError, ValueError) as e:
-        print(f"An error occured: {e}")
+        print(f"An error has occured: {e}")
