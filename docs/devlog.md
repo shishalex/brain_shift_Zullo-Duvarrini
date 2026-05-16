@@ -41,11 +41,11 @@ Durante la prima settimana abbiamo inizializzato il gioco. Creato il repository 
 
 ### Settimana 2 (29 aprile - 5 maggio 2026)
 
-_Scrivete qui._
+Durante la seconda settimana abbiamo iniziato a scrivere il codice, inserendo le regole di gioco e il funzionamento, senza usare ancora pygame. 
 
 ### Settimana 3 (6-12 maggio 2026)
 
-_Scrivete qui._
+Durante la terza settimana abbiamo scritto tutta l'interfaccia grafica.
 
 ### Settimana finale (13-17 maggio 2026)
 

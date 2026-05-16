@@ -6,21 +6,17 @@
 
 Per ciascun modulo del vostro progetto, una-due righe:
 
-- `main.py` — …
-- `config.py` — …
-- `models.py` — …
-- `rules.py` — …
-- `scoring.py` — …
-- `generator.py` — …
-- `states.py` — …
-- `ui.py` — …
-- `input_handler.py` — …
-
-Se avete aggiunto/rimosso moduli rispetto alla struttura suggerita, spiegate perché.
+- `main.py` — File principale
+- `config.py` — Configurazioni per la UI
+- `models.py` — Classi da utilizzare
+- `rules.py` — Parte di logica del gioco
+- `scoring.py` — Funzione per controllare la risposta
+- `generator.py` — Creatore di oggetti
+- `ui.py` — Interfaccia grafica
 
 ## Separazione logica / presentazione
-
-Quali moduli sono "puri" (non importano pygame)? Quali sono legati al rendering? Come comunicano fra loro?
+La logica di gioco viene sviluppata principalmente in rules.py.
+Sono anche state separati i luoghi di creazione di oggetti e contenitori di classi, rispettivamente in generator.py e models.py.
 
 Se avete fatto scelte non ovvie (es. passare lo stato come parametro invece che come variabile globale), spiegate il ragionamento.
 

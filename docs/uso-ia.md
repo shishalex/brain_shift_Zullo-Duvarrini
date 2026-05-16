@@ -17,8 +17,7 @@ Elencate gli strumenti IA che il gruppo ha effettivamente usato durante il proge
 - [ ] ChatGPT (modello: …)
 - [ ] Claude (modello: …)
 - [ ] GitHub Copilot
-- [ ] Gemini (modello: …)
-- [ ] altro: …
+- [x] Gemini (modello: Pro)
 
 Se non avete usato IA, dichiaratelo esplicitamente.
 
