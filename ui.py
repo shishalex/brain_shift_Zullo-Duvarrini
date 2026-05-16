@@ -54,8 +54,7 @@ def draw_timer_text(surface: pygame.Surface, remaining: float, expired: bool):
         color = (0, 0, 0)
 
     surf = config.timer_font.render(text, True, color)
-    y = config.TIMER_BAR_Y + config.TIMER_BAR_H + 10
-    rect = surf.get_rect(centerx=config.SCREEN_WIDTH // 2, top=y)
+    rect = surf.get_rect(centerx=config.SCREEN_WIDTH // 2, top=config.TIMER_BAR_Y)
     surface.blit(surf, rect)
 
 
@@ -164,6 +163,23 @@ def draw_game_start(surface: pygame.Surface):
     inst_rect = inst_surf.get_rect(center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 80))
     surface.blit(inst_surf, inst_rect)
 
-def draw_meter_bar(surface: pygame.Surface):
-    # TODO
-    pass
+def draw_meter_bar(surface: pygame.Surface, meter: int, multiplier: int):
+    meter_rect = pygame.Rect(config.METER_BAR_X, config.METER_BAR_Y, config.METER_BAR_W, config.METER_BAR_H)
+    pygame.draw.rect(surface, config.METER_BG_COLOR, meter_rect, border_radius=4)
+    pygame.draw.rect(surface, (0, 0, 0), meter_rect, 2, border_radius=4)
+
+    gap = 4
+    total_gaps_w = gap * 2
+    slot_w = (config.METER_BAR_W - total_gaps_w) // 3
+    slot_h = config.METER_BAR_H - 4
+
+    for i in range(3):
+        if i < meter:
+            slot_x = config.METER_BAR_X + i * (slot_w + gap) + 2
+            slot_y = config.METER_BAR_Y + 2
+            slot_rect = pygame.Rect(slot_x, slot_y, slot_w, slot_h)
+            pygame.draw.rect(surface, config.METER_FILL_COLOR, slot_rect, border_radius=2)
+
+    text_surf = config.score_font.render(f"Moltiplicatore: x{multiplier}", True, config.TEXT_COLOR)
+    text_rect = text_surf.get_rect(centerx=config.SCREEN_WIDTH // 2, top=config.METER_BAR_Y + config.METER_BAR_H + 5)
+    surface.blit(text_surf, text_rect)

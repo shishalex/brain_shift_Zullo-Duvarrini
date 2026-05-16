@@ -85,7 +85,7 @@ while running:
                             wrong_answers += 1
                             if meter > 0:
                                 meter = 0
-                                multiplier = min(multiplier - 1, 1)
+                                multiplier = max(multiplier - 1, 1)
 
                         score = apply_answer(score, is_correct, multiplier)
                         current_trial = generator.generate_trial(rng)
@@ -103,7 +103,7 @@ while running:
         if expired:
             # Richiama la funzione passando lo score corrente
             score += 40 * multiplier
-            ui.draw_game_over(screen, score)
+            game_state = STATE_GAMEOVER
         else:
             # Disegna la carta e le domande (hints) permanentemente
             if current_time < feedback_until:
@@ -119,10 +119,10 @@ while running:
             ui.draw_timer_bar(screen, remaining, config.COUNTDOWN)
             ui.draw_timer_text(screen, remaining, expired)
             ui.draw_score(screen, score)
+            ui.draw_meter_bar(screen, meter, multiplier)
             ui.draw_answers(screen, correct_answers, wrong_answers)
 
     elif game_state == STATE_GAMEOVER:
-        score += 40 * multiplier
         ui.draw_game_over(screen, score)
 
     pygame.display.flip()

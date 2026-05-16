@@ -57,13 +57,21 @@ ANSWERS_WIDTH = 220
 ANSWERS_HEIGHT = 80
 ANSWERS_Y = SCREEN_HEIGHT - ANSWERS_HEIGHT - 40
 
+# Costanti Box Meter
+METER_BAR_W = 200
+METER_BAR_H = 15
+METER_BAR_X = (SCREEN_WIDTH - METER_BAR_W) // 2
+METER_BAR_Y = TIMER_BAR_Y + TIMER_BAR_H + 15
+METER_BG_COLOR = (200, 220, 240)
+METER_FILL_COLOR = (0, 102, 204)
+
 # Font Usati
 card_font = pygame.font.SysFont("Comic Sans", 100, bold=True)
 score_font = pygame.font.SysFont("Arial", 22, bold=True)
 timer_font = pygame.font.SysFont("Roboto", 40, bold=True)
 hint_font = pygame.font.SysFont("Comic Sans", 30, bold=False)
 
-#Funzioni Barra timer
+# Funzioni Barra timer
 def time_elapsed(start: float) -> float:
     return time.time() - start
 

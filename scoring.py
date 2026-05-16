@@ -5,10 +5,8 @@ def apply_answer(score: int, is_correct: bool, multiplier: int) -> int:
             score += (10 * multiplier)
             return score
         else:
-            if score >= 5:
-                return score - 5
-            else:
-                return 0
+            score = max(0, score - 5)
+            return score
 
     except (TypeError, ValueError) as e:
         print(f"An error has occured: {e}")
