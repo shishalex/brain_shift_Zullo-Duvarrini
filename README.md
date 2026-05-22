@@ -9,7 +9,17 @@ Classe 4A Informatica — a.s. 2025-26.
 
 ## Cos'è Brain Shift
 
-Brain Shift è un gioco di velocità e memoria. Il gioco consiste in un'apparizione di una card al centro dello schermo con all'interno una lettera e un numero. In base al posizionamento della carta dovrai rispondere alla domanda: "E' Pari?" o "E' una vocale?", rispondendo sì o no.
+Brain Shift è un gioco di velocità e memoria. Il gioco consiste in un'apparizione di una card al centro dello schermo con all'interno una lettera e un numero.
+
+In base al posizionamento della carta dovrai rispondere alla domanda: "E' Pari?" o "E' una vocale?", 
+rispondendo sì o no.
+
+Il gioco possiede oltre ad un sistema di punteggio classico, che aggiunge 10 punti ad ogni risposta corretta e -5 ad una sbagliata, 
+è implementato un sistema moltiplicatore.
+
+Con il moltiplicatore, facendo 3 risposte corrette di file aumenta e moltiplica il punteggio. 
+Se sbagli una domanda perdi il moltiplicatore.
+Con il time
 
 ## Come giocare
 
