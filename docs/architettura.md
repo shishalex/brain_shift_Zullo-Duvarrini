@@ -14,28 +14,56 @@ Per ciascun modulo del vostro progetto, una-due righe:
 - `generator.py` — Creatore di oggetti
 - `ui.py` — Interfaccia grafica
 
-## Separazione logica / presentazione
-La logica di gioco viene sviluppata principalmente in rules.py.
-Sono anche state separati i luoghi di creazione di oggetti e contenitori di classi, rispettivamente in generator.py e models.py.
+### Main.py
+Nel main del progetto troviamo l'inizializzazione di pygame
+e la dichiarazione delle variabili counter (Come punteggio e risposte).
+Ritroviamo anche tutta la gestione degli eventi e il disegno della UI.
 
-Se avete fatto scelte non ovvie (es. passare lo stato come parametro invece che come variabile globale), spiegate il ragionamento.
+### Config.py
+Nel file config troviamo, elencati e divisi, tutti le costanti utili alla UI
+e anche delle funzioni per il timer.
+
+### Models.py
+Models.py contine la struttura della dataclass Trial per gestione delle risposte per carta generata.
+
+### Rules.py
+Il rules troviamo tutta la logica che ci permette di capire se un numero è pari o una lettera è una vocale e, in base alla posizione, decidere cosa controllare.
+Questa è una parte chiave della logica di gioco.
+
+### Scoring.py
+In scoring.py è contenuta una singola funzione che assegna il punteggio in base se la
+risposta data è sbagliata o corretta, assegnando un moltiplicatore al quelle giuste.
+
+### Generator.py
+Generator.py è un file che, tramite la dataclass che troviamo in trials.py, crea una
+nuova carta effettiva che poi verrà passata alla UI per essere visualizzata e funzionare nella partita.
+
+### UI.py
+In questo file troviamo tutta la gestione dell'interfaccia grafica. Sono presenti tutte
+le funzioni che ci permettono di disegnare i componenti del gioco prendendo le costanti da config.py.
 
 ## Macchina a stati
 
-Diagramma della macchina a stati (Mermaid va benissimo, è supportato da GitHub):
+Diagramma della macchina a stati:
 
 ```mermaid
 stateDiagram-v2
     [*] --> INTRO
-    INTRO --> PLAYING: premo Start
-    PLAYING --> PAUSED: premo P
-    PAUSED --> PLAYING: premo P
+    INTRO --> PLAYING: premo Start (invio)
     PLAYING --> RESULTS: scade il timer
-    RESULTS --> PLAYING: premo R
     RESULTS --> [*]: premo ESC
 ```
 
-Spiegate brevemente ciascuno stato: cosa fa, cosa disegna, quali input ascolta, verso quali stati può transire.
+### Avvio
+Quando avviamo il gioco ci si para davanti una schermata che ci chiede di premere invio per iniziarea giocare.
+### Playing
+Appaino tutti gli elementi grafici del gioco e si possono usare i comandi per dare le risposte.
+Quando il timer di 30 secondi finisce, appare la schermata dei risultati.
+### Results
+Appare una finestra dove viene mostrato il punteggio totalizzato con un piccolo bonus.
+
+Si può premere poi esc per chiudere il gioco.
+
 
 ## Flusso di un trial
 
